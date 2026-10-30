@@ -74,7 +74,7 @@ function familyChips(families) {
 // ---------- Routage ----------
 
 const ui = {
-  guide: { q: '', status: '', cat: '', fam: '' },
+  guide: { q: '', status: '', cat: '', fam: '', fiche: false },
   recettes: { q: '', meal: '', fav: false },
   journalDay: dayKey(Date.now()),
   bilanDays: 14,
@@ -104,6 +104,7 @@ function renderGuide() {
     && (!f.status || x.status === f.status)
     && (!f.cat || x.category === f.cat)
     && (!f.fam || x.families.includes(f.fam))
+    && (!f.fiche || x.fiche)
   ));
 
   const groups = CATEGORIES.concat('Mes aliments')
@@ -113,7 +114,7 @@ function renderGuide() {
   main.innerHTML = `
     <header class="view-head">
       <h1>Guide alimentaire</h1>
-      <p class="muted">Indications générales, pas des mesures de laboratoire. Touchez un aliment pour l’adapter à votre propre tolérance.</p>
+      <p class="muted">Classement de la fiche de votre médecin (SNFCP). Les aliments « hors fiche » viennent d’autres sources générales. Touchez un aliment pour l’adapter à votre tolérance.</p>
     </header>
     <div class="filters">
       <input type="search" id="g-q" placeholder="Rechercher un aliment…" value="${h(f.q)}" autocomplete="off">
@@ -130,6 +131,7 @@ function renderGuide() {
         </select>
       </div>
     </div>
+    <label class="check toggle"><input type="checkbox" id="g-fiche" ${f.fiche ? 'checked' : ''}> Seulement les aliments de la fiche du médecin</label>
     <p class="count muted">${foods.length} aliment${foods.length > 1 ? 's' : ''}</p>
     ${groups.map(([cat, list]) => `
       <section class="group">
@@ -142,6 +144,7 @@ function renderGuide() {
               <span class="food-main">
                 <span class="food-name">${h(x.name)}${x.edited ? ' <span class="edited" title="Fiche modifiée">✎</span>' : ''}</span>
                 ${x.note ? `<span class="food-note">${h(x.note)}</span>` : ''}
+                ${x.fiche ? '' : '<span class="food-src">Hors fiche</span>'}
                 ${hint ? `<span class="food-hint">${h(hint)}</span>` : ''}
               </span>
               ${statusBadge(x.status)}
@@ -166,6 +169,7 @@ function renderGuide() {
   }));
   $('#g-cat').addEventListener('change', (e) => { f.cat = e.target.value; renderGuide(); });
   $('#g-fam').addEventListener('change', (e) => { f.fam = e.target.value; renderGuide(); });
+  $('#g-fiche').addEventListener('change', (e) => { f.fiche = e.target.checked; renderGuide(); });
   main.querySelectorAll('[data-food]').forEach((b) => b.addEventListener('click', () => openFood(b.dataset.food)));
   $('#g-add').addEventListener('click', () => openFood(null));
 }
@@ -181,6 +185,7 @@ function openFood(id) {
       ${isCustom ? `<label>Nom<input name="name" required value="${h(food.name)}"></label>` : ''}
       ${!id ? '' : `<p>${statusBadge(food.status)} ${h(STATUS[food.status].label)}</p>
         ${food.families.length ? `<p>FODMAP concernés : ${familyChips(food.families)}</p>` : ''}
+        <p class="muted small">${food.fiche ? 'Classement de la fiche de votre médecin.' : 'Absent de la fiche de votre médecin : classement issu de sources générales.'}</p>
         ${personalHint(food) ? `<p class="food-hint">${h(personalHint(food))}</p>` : ''}`}
       <fieldset>
         <legend>${id ? 'Pour moi, cet aliment est' : 'Statut'}</legend>

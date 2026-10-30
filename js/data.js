@@ -29,9 +29,9 @@ const RAW = [
   ['Carotte', 'Légumes', 'ok', [], ''],
   ['Courgette', 'Légumes', 'limite', ['fructanes'], 'Bien tolérée en petite portion (environ 65 g).'],
   ['Concombre', 'Légumes', 'ok', [], ''],
-  ['Aubergine', 'Légumes', 'eviter', [], 'Fiche SNFCP : à éviter. D’autres sources la tolèrent en petite portion.'],
-  ['Poivron rouge', 'Légumes', 'eviter', [], 'Fiche SNFCP : à éviter. D’autres sources le tolèrent : à tester en réintroduction.'],
-  ['Poivron vert', 'Légumes', 'eviter', [], 'Fiche SNFCP : à éviter. '],
+  ['Aubergine', 'Légumes', 'eviter', [], 'D’autres sources la tolèrent en petite portion.'],
+  ['Poivron rouge', 'Légumes', 'eviter', [], 'D’autres sources le tolèrent : à tester en réintroduction.'],
+  ['Poivron vert', 'Légumes', 'eviter', [], ''],
   ['Tomate', 'Légumes', 'ok', [], 'Tomates cerises et séchées : portions plus petites.'],
   ['Épinards', 'Légumes', 'ok', [], ''],
   ['Laitue, roquette, mâche', 'Légumes', 'ok', [], ''],
@@ -46,8 +46,8 @@ const RAW = [
   ['Pak choï / bok choy', 'Légumes', 'ok', [], ''],
   ['Chou blanc', 'Légumes', 'limite', ['sorbitol'], 'Petite portion (environ 75 g).'],
   ['Chou rouge', 'Légumes', 'limite', ['fructanes'], 'Petite portion (environ 75 g).'],
-  ['Choux de Bruxelles', 'Légumes', 'eviter', ['fructanes'], 'Fiche SNFCP : à éviter. '],
-  ['Brocoli (têtes)', 'Légumes', 'eviter', ['fructose'], 'Fiche SNFCP : à éviter. Les têtes passent souvent mieux que les tiges en réintroduction.'],
+  ['Choux de Bruxelles', 'Légumes', 'eviter', ['fructanes'], ''],
+  ['Brocoli (têtes)', 'Légumes', 'eviter', ['fructose'], 'Les têtes passent souvent mieux que les tiges en réintroduction.'],
   ['Brocoli (tiges)', 'Légumes', 'eviter', ['fructose'], ''],
   ['Chou-fleur', 'Légumes', 'eviter', ['mannitol'], ''],
   ['Champignons de Paris', 'Légumes', 'eviter', ['mannitol'], ''],
@@ -55,10 +55,10 @@ const RAW = [
   ['Champignons en conserve', 'Légumes', 'limite', ['mannitol'], 'Rincés, ils sont mieux tolérés.'],
   ['Céleri branche', 'Légumes', 'limite', ['mannitol'], 'À favoriser selon la fiche SNFCP ; en grande quantité, il apporte du mannitol.'],
   ['Céleri-rave', 'Légumes', 'ok', [], ''],
-  ['Fenouil (bulbe)', 'Légumes', 'eviter', ['fructanes'], 'Fiche SNFCP : à éviter. '],
-  ['Betterave', 'Légumes', 'eviter', ['gos', 'fructanes'], 'Fiche SNFCP : à éviter. '],
-  ['Petits pois', 'Légumes', 'eviter', ['gos'], 'Fiche SNFCP : à éviter. '],
-  ['Maïs doux', 'Légumes', 'eviter', ['sorbitol'], 'Fiche SNFCP : à éviter. '],
+  ['Fenouil (bulbe)', 'Légumes', 'eviter', ['fructanes'], ''],
+  ['Betterave', 'Légumes', 'eviter', ['gos', 'fructanes'], ''],
+  ['Petits pois', 'Légumes', 'eviter', ['gos'], ''],
+  ['Maïs doux', 'Légumes', 'eviter', ['sorbitol'], ''],
   ['Avocat', 'Légumes', 'limite', ['sorbitol'], 'Environ 30 g (⅛ d’avocat).'],
   ['Courge butternut', 'Légumes', 'limite', ['gos', 'mannitol'], 'Environ ¼ de tasse.'],
   ['Potimarron / courge kabocha', 'Légumes', 'ok', [], ''],
@@ -115,10 +115,10 @@ const RAW = [
   ['Nouilles de riz', 'Céréales & féculents', 'ok', [], ''],
   ['Pâtes sans gluten', 'Céréales & féculents', 'ok', [], 'Vérifier l’absence d’inuline ou de farine de légumineuses.'],
   ['Pain sans gluten', 'Céréales & féculents', 'ok', [], 'Vérifier les ingrédients (inuline, farine de soja, miel).'],
-  ['Pain d’épeautre au levain', 'Céréales & féculents', 'eviter', ['fructanes'], 'Fiche SNFCP : à éviter. L’épeautre est un blé. Le levain réduit les fructanes : à tester en réintroduction.'],
-  ['Pain blanc au levain traditionnel', 'Céréales & féculents', 'eviter', ['fructanes'], 'Fiche SNFCP : à éviter. Le blé est exclu sous toutes ses formes pendant l’élimination.'],
+  ['Pain d’épeautre au levain', 'Céréales & féculents', 'eviter', ['fructanes'], 'L’épeautre est un blé. Le levain réduit les fructanes : à tester en réintroduction.'],
+  ['Pain blanc au levain traditionnel', 'Céréales & féculents', 'eviter', ['fructanes'], 'Le blé est exclu sous toutes ses formes pendant l’élimination.'],
   ['Pain de blé classique', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
-  ['Pâtes de blé', 'Céréales & féculents', 'eviter', ['fructanes'], 'Fiche SNFCP : à éviter. '],
+  ['Pâtes de blé', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
   ['Couscous, semoule de blé', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
   ['Seigle', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
   ['Orge', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
@@ -145,14 +145,14 @@ const RAW = [
   // Produits laitiers & alternatives
   ['Lait de vache', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Préférer le lait sans lactose.'],
   ['Lait sans lactose', 'Produits laitiers & alternatives', 'ok', [], ''],
-  ['Yaourt classique', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Fiche SNFCP : à éviter. Préférer sans lactose ou végétal.'],
+  ['Yaourt classique', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Préférer sans lactose ou végétal.'],
   ['Yaourt sans lactose', 'Produits laitiers & alternatives', 'ok', [], ''],
   ['Fromages affinés (comté, cheddar, parmesan, gouda)', 'Produits laitiers & alternatives', 'ok', [], 'Pratiquement sans lactose.'],
   ['Mozzarella, brie, camembert, feta', 'Produits laitiers & alternatives', 'ok', [], ''],
-  ['Ricotta, cottage cheese', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Fiche SNFCP : à éviter. Fromages à pâte molle non affinés.'],
-  ['Fromage frais, fromage blanc', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Fiche SNFCP : à éviter. '],
-  ['Crème fraîche, crème liquide', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Fiche SNFCP : à éviter. '],
-  ['Beurre', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Fiche SNFCP : à éviter. Il contient en réalité très peu de lactose : à rediscuter avec votre médecin.'],
+  ['Ricotta, cottage cheese', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Fromages à pâte molle non affinés.'],
+  ['Fromage frais, fromage blanc', 'Produits laitiers & alternatives', 'eviter', ['lactose'], ''],
+  ['Crème fraîche, crème liquide', 'Produits laitiers & alternatives', 'eviter', ['lactose'], ''],
+  ['Beurre', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Il contient en réalité très peu de lactose : à rediscuter avec votre médecin.'],
   ['Glace au lait', 'Produits laitiers & alternatives', 'eviter', ['lactose'], ''],
   ['Lait d’amande', 'Produits laitiers & alternatives', 'ok', [], ''],
   ['Lait de riz', 'Produits laitiers & alternatives', 'ok', [], ''],
@@ -222,8 +222,8 @@ const RAW = [
   ['Pesto', 'Condiments & assaisonnements', 'limite', ['fructanes'], 'Le maison sans ail passe très bien.'],
   ['Sauce tomate du commerce', 'Condiments & assaisonnements', 'limite', ['fructanes'], 'Contient souvent ail et oignon.'],  // Ajouts d'après la fiche SNFCP. L'identifiant d'un aliment est sa position dans cette
   // liste : toujours ajouter à la fin, ne jamais insérer ni supprimer.
-  ['Kaki', 'Fruits', 'eviter', [], 'Fiche SNFCP : à éviter.'],
-  ['Fruits en conserve', 'Fruits', 'eviter', ['fructose'], 'Fiche SNFCP : à éviter.'],
+  ['Kaki', 'Fruits', 'eviter', [], ''],
+  ['Fruits en conserve', 'Fruits', 'eviter', ['fructose'], ''],
   ['Pamplemousse', 'Fruits', 'ok', [], 'Environ ½ pamplemousse.'],
   ['Rhubarbe', 'Fruits', 'ok', [], ''],
   ['Noix de coco', 'Fruits', 'ok', [], ''],
@@ -238,24 +238,79 @@ const RAW = [
   ['Pois cassés, pois secs', 'Légumineuses', 'eviter', ['gos'], ''],
   ['Lait concentré, lait en poudre', 'Produits laitiers & alternatives', 'eviter', ['lactose'], ''],
   ['Beurre sans lactose, beurre végétal', 'Produits laitiers & alternatives', 'ok', [], ''],
-  ['Margarine', 'Produits laitiers & alternatives', 'eviter', [], 'Fiche SNFCP : à éviter.'],
+  ['Margarine', 'Produits laitiers & alternatives', 'eviter', [], ''],
   ['Yaourt végétal (soja, coco)', 'Produits laitiers & alternatives', 'ok', [], 'Vérifier l’absence d’inuline.'],
   ['Desserts à base de lait de vache', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Crèmes dessert, flans, riz au lait…'],
   ['Glace sans lactose, sorbet', 'Sucres & douceurs', 'ok', [], 'Sorbet : éviter ceux à la mangue, à la pomme ou à la poire.'],
   ['Fructose (sucre de fruit)', 'Sucres & douceurs', 'eviter', ['fructose'], ''],
   ['Mélasse', 'Sucres & douceurs', 'ok', [], 'En petite quantité.'],
-  ['Confiture', 'Sucres & douceurs', 'eviter', ['fructose'], 'Fiche SNFCP : à éviter.'],
+  ['Confiture', 'Sucres & douceurs', 'eviter', ['fructose'], ''],
   ['Bonbons, sucettes, chewing-gums', 'Sucres & douceurs', 'eviter', ['sorbitol', 'mannitol'], 'Surtout « sans sucre » ou à la menthe.'],
   ['Gin, whisky, vodka', 'Boissons', 'ok', [], 'Avec modération ; l’alcool irrite l’intestin.'],
   ['Cidre', 'Boissons', 'eviter', ['fructose', 'sorbitol'], ''],
-  ['Vermouth, porto, vin cuit, crème de cassis', 'Boissons', 'eviter', ['fructose'], 'Fiche SNFCP : à éviter.'],
+  ['Vermouth, porto, vin cuit, crème de cassis', 'Boissons', 'eviter', ['fructose'], ''],
   ['Jus de fruits du commerce, concentrés', 'Boissons', 'eviter', ['fructose'], ''],
   ['Plats préparés en sauce', 'Protéines', 'eviter', ['fructanes'], 'Sauces et bouillons contiennent souvent ail, oignon et blé.'],
   ['Anis étoilé (badiane)', 'Condiments & assaisonnements', 'ok', [], ''],
 ];
 
+// Classement de la fiche « Régime pauvre en FODMAPs » remise par le médecin (SNFCP).
+// Il prime sur le classement ci-dessus pour chaque aliment qu'elle cite.
+const FICHE = {
+  ok: [
+    // Fruits
+    206, 49, 50, 51, 74, 184, 60, 57, 183, 52, 53, 62, 61, 54, 56, 179, 55, 180, 182, 181,
+    // Légumes
+    7, 0, 9, 37, 38, 27, 28, 10, 11, 1, 2, 8,
+    // Céréales
+    185, 79, 187, 83, 84, 75, 78, 80, 186, 76, 81,
+    // Noix
+    134, 131, 126, 125, 135, 127, 133, 124,
+    // Laits, yaourts, fromages, beurre, huile
+    108, 123, 121, 122, 118, 119, 110, 194, 111, 112, 192, 162,
+    // Sirops, sucres, glaces, herbes
+    139, 198, 138, 142, 196, 171,
+    // Protéines, alcools, boissons
+    93, 95, 94, 96, 97, 158, 201, 157, 149, 150, 151, 155,
+  ],
+  eviter: [
+    // Fruits
+    63, 65, 66, 178, 70, 177, 67, 72, 71, 68, 64, 69,
+    // Légumes
+    46, 21, 22, 48, 30, 20, 3, 29, 42, 43, 39, 40, 41, 44, 23, 4, 5, 24, 25, 26, 32, 31, 47,
+    // Légumineuses
+    100, 101, 102, 103, 104, 105, 106, 189, 190,
+    // Céréales
+    85, 86, 87, 88, 89, 90, 91, 188,
+    // Noix, laitages
+    136, 137, 107, 191, 109, 113, 114, 115, 116, 193, 117,
+    // Sirops, édulcorants, autres
+    145, 197, 146, 200, 152, 195, 143, 199,
+    // Protéines, alcools, boissons
+    205, 202, 159, 203, 204, 156,
+  ],
+};
+const FICHE_STATUS = new Map(Object.entries(FICHE).flatMap(([st, ids]) => ids.map((i) => [i, st])));
+
+// Notes réécrites quand la fiche change le classement d'origine.
+const FICHE_NOTES = {
+  1: '', 3: '', 4: '', 21: '', 85: 'L’épeautre est un blé.', 100: '', 101: '', 105: '', 11: '', 27: '', 50: '', 53: '', 74: '', 97: '', 122: '', 134: '', 135: '',
+  43: 'La fiche classe le poireau à éviter, partie verte comprise.',
+  44: 'La fiche classe l’oignon à éviter, partie verte comprise. La ciboulette la remplace.',
+  25: 'La fiche classe tous les champignons à éviter.',
+  152: 'La fiche déconseille la menthe.',
+  155: 'Frais maison uniquement.',
+  116: 'Préférer le beurre sans lactose ou végétal.',
+};
+
 export const FOODS = RAW.map(([name, category, status, families, note], i) => ({
-  id: 'f' + i, name, category, status, families, note,
+  id: 'f' + i,
+  name,
+  category,
+  status: FICHE_STATUS.get(i) || status,
+  families,
+  note: i in FICHE_NOTES ? FICHE_NOTES[i] : note,
+  fiche: FICHE_STATUS.has(i),
 }));
 
 // Aliments-tests suggérés pour la réintroduction (portion croissante sur 3 jours).
@@ -300,8 +355,8 @@ export const RECIPES = [
   },
   {
     id: 'r3', title: 'Bol de riz au saumon, concombre et sésame', meal: 'Déjeuner', time: 20, servings: 2,
-    ingredients: ['150 g de riz', '2 pavés de saumon', '½ concombre', '1 carotte râpée', '2 c. à soupe de sauce soja', '1 c. à café d’huile de sésame', '1 c. à café de gingembre râpé', 'Graines de sésame', 'Vert d’oignon nouveau'],
-    steps: ['Cuire le riz.', 'Saisir le saumon 3 à 4 minutes de chaque côté.', 'Mélanger sauce soja, huile de sésame et gingembre.', 'Dresser riz, saumon émietté, concombre et carotte ; arroser de sauce, parsemer de sésame et de vert d’oignon.'],
+    ingredients: ['150 g de riz', '2 pavés de saumon', '½ concombre', '1 carotte râpée', '2 c. à soupe de sauce soja', '1 c. à café d’huile de sésame', '1 c. à café de gingembre râpé', 'Graines de sésame', 'Ciboulette'],
+    steps: ['Cuire le riz.', 'Saisir le saumon 3 à 4 minutes de chaque côté.', 'Mélanger sauce soja, huile de sésame et gingembre.', 'Dresser riz, saumon émietté, concombre et carotte ; arroser de sauce, parsemer de sésame et de ciboulette.'],
   },
   {
     id: 'r4', title: 'Salade de quinoa, poulet et légumes grillés', meal: 'Déjeuner', time: 30, servings: 2,
@@ -310,8 +365,8 @@ export const RECIPES = [
   },
   {
     id: 'r5', title: 'Soupe carotte, gingembre et lait de coco', meal: 'Dîner', time: 30, servings: 4,
-    ingredients: ['600 g de carottes', '1 pomme de terre', '1 c. à soupe de gingembre râpé', 'Vert de 2 poireaux', '200 ml de lait de coco', '800 ml de bouillon sans ail ni oignon', '1 c. à soupe d’huile d’olive', 'Coriandre'],
-    steps: ['Faire revenir le vert de poireau émincé dans l’huile.', 'Ajouter carottes et pomme de terre en morceaux, le gingembre et le bouillon.', 'Cuire 20 minutes, ajouter le lait de coco et mixer.', 'Servir avec de la coriandre.'],
+    ingredients: ['600 g de carottes', '1 pomme de terre', '1 c. à soupe de gingembre râpé', '1 branche de céleri', '200 ml de lait de coco', '800 ml de bouillon sans ail ni oignon', '1 c. à soupe d’huile d’olive', 'Coriandre'],
+    steps: ['Faire revenir le céleri émincé dans l’huile.', 'Ajouter carottes et pomme de terre en morceaux, le gingembre et le bouillon.', 'Cuire 20 minutes, ajouter le lait de coco et mixer.', 'Servir avec de la coriandre.'],
   },
   {
     id: 'r6', title: 'Pâtes sans gluten à la sauce tomate maison', meal: 'Dîner', time: 25, servings: 2,
@@ -320,8 +375,8 @@ export const RECIPES = [
   },
   {
     id: 'r7', title: 'Curry de poulet et pommes de terre', meal: 'Dîner', time: 35, servings: 3,
-    ingredients: ['2 blancs de poulet', '3 pommes de terre', '1 carotte', '1 poignée d’épinards', '200 ml de lait de coco', '2 c. à café de curry en poudre sans ail', '1 c. à café de curcuma', '1 c. à soupe de gingembre', 'Vert d’oignon nouveau', 'Riz basmati'],
-    steps: ['Dorer le poulet en dés avec le gingembre et les épices.', 'Ajouter pommes de terre et carotte en dés, le lait de coco et 100 ml d’eau.', 'Mijoter 20 minutes, ajouter les épinards en fin de cuisson.', 'Servir avec le riz et le vert d’oignon.'],
+    ingredients: ['2 blancs de poulet', '3 pommes de terre', '1 carotte', '1 poignée d’épinards', '200 ml de lait de coco', '2 c. à café de curry en poudre sans ail', '1 c. à café de curcuma', '1 c. à soupe de gingembre', 'Coriandre', 'Riz basmati'],
+    steps: ['Dorer le poulet en dés avec le gingembre et les épices.', 'Ajouter pommes de terre et carotte en dés, le lait de coco et 100 ml d’eau.', 'Mijoter 20 minutes, ajouter les épinards en fin de cuisson.', 'Servir avec le riz et la coriandre.'],
   },
   {
     id: 'r8', title: 'Sauté de tofu, pak choï et nouilles de riz', meal: 'Dîner', time: 20, servings: 2,
