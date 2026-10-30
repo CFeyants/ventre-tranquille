@@ -1,0 +1,320 @@
+// Données de référence — indicatives, issues des connaissances publiques générales sur
+// les FODMAP. Ce ne sont pas des mesures de laboratoire : les teneurs varient selon la
+// variété, la maturité et la portion. L'utilisateur peut corriger chaque fiche.
+
+export const FAMILIES = {
+  fructanes: { label: 'Fructanes', hint: 'blé, seigle, orge, ail, oignon, poireau' },
+  gos: { label: 'GOS', hint: 'légumineuses, noix de cajou, pistaches' },
+  lactose: { label: 'Lactose', hint: 'lait, yaourt, fromages frais' },
+  fructose: { label: 'Fructose', hint: 'miel, mangue, pomme, asperge' },
+  sorbitol: { label: 'Sorbitol', hint: 'fruits à noyau, avocat, édulcorants' },
+  mannitol: { label: 'Mannitol', hint: 'champignons, chou-fleur, patate douce' },
+};
+
+export const STATUS = {
+  ok: { label: 'Pauvre en FODMAP', short: 'OK' },
+  limite: { label: 'Selon la portion', short: 'Portion' },
+  eviter: { label: 'Riche en FODMAP', short: 'Éviter' },
+};
+
+export const CATEGORIES = [
+  'Légumes', 'Fruits', 'Céréales & féculents', 'Protéines', 'Légumineuses',
+  'Produits laitiers & alternatives', 'Noix & graines', 'Sucres & douceurs',
+  'Boissons', 'Condiments & assaisonnements',
+];
+
+// [nom, catégorie, statut, familles concernées, note]
+const RAW = [
+  // Légumes
+  ['Carotte', 'Légumes', 'ok', [], ''],
+  ['Courgette', 'Légumes', 'limite', ['fructanes'], 'Bien tolérée en petite portion (environ 65 g).'],
+  ['Concombre', 'Légumes', 'ok', [], ''],
+  ['Aubergine', 'Légumes', 'ok', [], ''],
+  ['Poivron rouge', 'Légumes', 'ok', [], ''],
+  ['Poivron vert', 'Légumes', 'ok', [], ''],
+  ['Tomate', 'Légumes', 'ok', [], 'Tomates cerises et séchées : portions plus petites.'],
+  ['Épinards', 'Légumes', 'ok', [], ''],
+  ['Laitue, roquette, mâche', 'Légumes', 'ok', [], ''],
+  ['Endive', 'Légumes', 'ok', [], ''],
+  ['Pomme de terre', 'Légumes', 'ok', [], ''],
+  ['Patate douce', 'Légumes', 'limite', ['mannitol'], 'Environ ½ tasse (75 g) par repas.'],
+  ['Haricots verts', 'Légumes', 'ok', [], 'Environ 15 haricots par portion.'],
+  ['Panais', 'Légumes', 'ok', [], ''],
+  ['Navet', 'Légumes', 'ok', [], ''],
+  ['Radis', 'Légumes', 'ok', [], ''],
+  ['Chou kale', 'Légumes', 'ok', [], ''],
+  ['Pak choï / bok choy', 'Légumes', 'ok', [], ''],
+  ['Chou blanc', 'Légumes', 'limite', ['sorbitol'], 'Petite portion (environ 75 g).'],
+  ['Chou rouge', 'Légumes', 'limite', ['fructanes'], 'Petite portion (environ 75 g).'],
+  ['Choux de Bruxelles', 'Légumes', 'limite', ['fructanes'], '2 choux environ.'],
+  ['Brocoli (têtes)', 'Légumes', 'limite', ['fructose'], 'Les têtes passent mieux que les tiges.'],
+  ['Brocoli (tiges)', 'Légumes', 'eviter', ['fructose'], ''],
+  ['Chou-fleur', 'Légumes', 'eviter', ['mannitol'], ''],
+  ['Champignons de Paris', 'Légumes', 'eviter', ['mannitol'], ''],
+  ['Pleurotes', 'Légumes', 'ok', [], 'Une alternative aux champignons de Paris.'],
+  ['Champignons en conserve', 'Légumes', 'limite', ['mannitol'], 'Rincés, ils sont mieux tolérés.'],
+  ['Céleri branche', 'Légumes', 'limite', ['mannitol'], 'Moins d’un quart de branche.'],
+  ['Céleri-rave', 'Légumes', 'ok', [], ''],
+  ['Fenouil (bulbe)', 'Légumes', 'limite', ['fructanes'], 'Environ ½ tasse.'],
+  ['Betterave', 'Légumes', 'limite', ['gos', 'fructanes'], '2 tranches environ.'],
+  ['Petits pois', 'Légumes', 'limite', ['gos'], 'Environ 1 cuillère à soupe.'],
+  ['Maïs doux', 'Légumes', 'limite', ['sorbitol'], 'Environ ½ épi.'],
+  ['Avocat', 'Légumes', 'limite', ['sorbitol'], 'Environ 30 g (⅛ d’avocat).'],
+  ['Courge butternut', 'Légumes', 'limite', ['gos', 'mannitol'], 'Environ ¼ de tasse.'],
+  ['Potimarron / courge kabocha', 'Légumes', 'ok', [], ''],
+  ['Germes de soja', 'Légumes', 'ok', [], ''],
+  ['Olives', 'Légumes', 'ok', [], ''],
+  ['Gingembre frais', 'Légumes', 'ok', [], ''],
+  ['Ail', 'Légumes', 'eviter', ['fructanes'], 'Remplacer par de l’huile infusée à l’ail.'],
+  ['Oignon (blanc, jaune, rouge)', 'Légumes', 'eviter', ['fructanes'], 'Remplacer par la partie verte des oignons nouveaux.'],
+  ['Échalote', 'Légumes', 'eviter', ['fructanes'], ''],
+  ['Poireau (partie blanche)', 'Légumes', 'eviter', ['fructanes'], ''],
+  ['Poireau (partie verte)', 'Légumes', 'ok', [], ''],
+  ['Oignon nouveau (partie verte)', 'Légumes', 'ok', [], ''],
+  ['Ciboulette', 'Légumes', 'ok', [], ''],
+  ['Artichaut', 'Légumes', 'eviter', ['fructanes'], ''],
+  ['Topinambour', 'Légumes', 'eviter', ['fructanes'], ''],
+  ['Asperges', 'Légumes', 'eviter', ['fructose', 'fructanes'], ''],
+
+  // Fruits
+  ['Banane ferme (peu mûre)', 'Fruits', 'ok', [], ''],
+  ['Banane bien mûre', 'Fruits', 'limite', ['fructanes'], 'Environ ⅓ de banane.'],
+  ['Myrtilles', 'Fruits', 'ok', [], ''],
+  ['Fraises', 'Fruits', 'ok', [], ''],
+  ['Framboises', 'Fruits', 'limite', ['fructose'], 'Environ 30 framboises.'],
+  ['Kiwi', 'Fruits', 'ok', [], ''],
+  ['Orange', 'Fruits', 'ok', [], ''],
+  ['Mandarine, clémentine', 'Fruits', 'ok', [], ''],
+  ['Citron, citron vert', 'Fruits', 'ok', [], ''],
+  ['Ananas', 'Fruits', 'ok', [], ''],
+  ['Raisin', 'Fruits', 'ok', [], ''],
+  ['Melon cantaloup', 'Fruits', 'ok', [], ''],
+  ['Papaye', 'Fruits', 'ok', [], ''],
+  ['Fruit de la passion', 'Fruits', 'ok', [], ''],
+  ['Pomme', 'Fruits', 'eviter', ['fructose', 'sorbitol'], ''],
+  ['Poire', 'Fruits', 'eviter', ['fructose', 'sorbitol'], ''],
+  ['Mangue', 'Fruits', 'eviter', ['fructose'], ''],
+  ['Pastèque', 'Fruits', 'eviter', ['fructose', 'mannitol', 'fructanes'], ''],
+  ['Cerises', 'Fruits', 'eviter', ['fructose', 'sorbitol'], ''],
+  ['Pêche, nectarine', 'Fruits', 'eviter', ['sorbitol'], ''],
+  ['Prune, pruneau', 'Fruits', 'eviter', ['sorbitol'], ''],
+  ['Abricot', 'Fruits', 'eviter', ['sorbitol'], ''],
+  ['Mûres', 'Fruits', 'eviter', ['sorbitol'], ''],
+  ['Figues', 'Fruits', 'eviter', ['fructanes', 'fructose'], ''],
+  ['Dattes, raisins secs', 'Fruits', 'eviter', ['fructanes'], ''],
+  ['Canneberges séchées', 'Fruits', 'limite', ['fructanes'], '1 cuillère à soupe.'],
+
+  // Céréales & féculents
+  ['Riz (blanc, complet, basmati)', 'Céréales & féculents', 'ok', [], ''],
+  ['Quinoa', 'Céréales & féculents', 'ok', [], ''],
+  ['Flocons d’avoine', 'Céréales & féculents', 'limite', ['fructanes', 'gos'], 'Environ ½ tasse (50 g) crus.'],
+  ['Polenta (maïs)', 'Céréales & féculents', 'ok', [], ''],
+  ['Sarrasin', 'Céréales & féculents', 'ok', [], ''],
+  ['Millet', 'Céréales & féculents', 'ok', [], ''],
+  ['Tapioca', 'Céréales & féculents', 'ok', [], ''],
+  ['Nouilles de riz', 'Céréales & féculents', 'ok', [], ''],
+  ['Pâtes sans gluten', 'Céréales & féculents', 'ok', [], 'Vérifier l’absence d’inuline ou de farine de légumineuses.'],
+  ['Pain sans gluten', 'Céréales & féculents', 'ok', [], 'Vérifier les ingrédients (inuline, farine de soja, miel).'],
+  ['Pain d’épeautre au levain', 'Céréales & féculents', 'ok', [], 'La fermentation longue réduit les fructanes.'],
+  ['Pain blanc au levain traditionnel', 'Céréales & féculents', 'limite', ['fructanes'], '2 tranches ; levain véritable uniquement.'],
+  ['Pain de blé classique', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
+  ['Pâtes de blé', 'Céréales & féculents', 'limite', ['fructanes'], 'Environ ½ tasse cuites.'],
+  ['Couscous (blé)', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
+  ['Seigle', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
+  ['Orge', 'Céréales & féculents', 'eviter', ['fructanes'], ''],
+  ['Galettes de riz', 'Céréales & féculents', 'ok', [], ''],
+
+  // Protéines
+  ['Bœuf, porc, agneau, volaille (nature)', 'Protéines', 'ok', [], 'Attention aux marinades, saucisses et panures.'],
+  ['Poisson et fruits de mer', 'Protéines', 'ok', [], ''],
+  ['Œufs', 'Protéines', 'ok', [], ''],
+  ['Tofu ferme', 'Protéines', 'ok', [], 'Le pressage élimine une partie des GOS.'],
+  ['Tofu soyeux', 'Protéines', 'eviter', ['gos'], ''],
+  ['Tempeh', 'Protéines', 'ok', [], ''],
+  ['Charcuterie, saucisses', 'Protéines', 'limite', ['fructanes'], 'Contiennent souvent ail, oignon ou blé.'],
+
+  // Légumineuses
+  ['Lentilles en conserve (rincées)', 'Légumineuses', 'limite', ['gos'], 'Environ ½ tasse ; rincer abondamment.'],
+  ['Pois chiches en conserve (rincés)', 'Légumineuses', 'limite', ['gos'], 'Environ ¼ de tasse.'],
+  ['Lentilles sèches cuites', 'Légumineuses', 'eviter', ['gos'], ''],
+  ['Haricots rouges, blancs, noirs', 'Légumineuses', 'eviter', ['gos'], ''],
+  ['Fèves', 'Légumineuses', 'eviter', ['gos'], ''],
+  ['Edamame', 'Légumineuses', 'limite', ['gos'], 'Environ 1 tasse.'],
+  ['Houmous', 'Légumineuses', 'eviter', ['gos', 'fructanes'], 'Pois chiches et ail.'],
+
+  // Produits laitiers & alternatives
+  ['Lait de vache', 'Produits laitiers & alternatives', 'eviter', ['lactose'], 'Préférer le lait sans lactose.'],
+  ['Lait sans lactose', 'Produits laitiers & alternatives', 'ok', [], ''],
+  ['Yaourt classique', 'Produits laitiers & alternatives', 'limite', ['lactose'], 'Petite portion ; préférer sans lactose.'],
+  ['Yaourt sans lactose', 'Produits laitiers & alternatives', 'ok', [], ''],
+  ['Fromages affinés (comté, cheddar, parmesan, gouda)', 'Produits laitiers & alternatives', 'ok', [], 'Pratiquement sans lactose.'],
+  ['Mozzarella, brie, camembert, feta', 'Produits laitiers & alternatives', 'ok', [], ''],
+  ['Ricotta, cottage cheese', 'Produits laitiers & alternatives', 'limite', ['lactose'], 'Environ 2 cuillères à soupe.'],
+  ['Fromage frais, fromage blanc', 'Produits laitiers & alternatives', 'limite', ['lactose'], ''],
+  ['Crème fraîche, crème liquide', 'Produits laitiers & alternatives', 'limite', ['lactose'], 'Environ ½ tasse.'],
+  ['Beurre', 'Produits laitiers & alternatives', 'ok', [], ''],
+  ['Glace au lait', 'Produits laitiers & alternatives', 'eviter', ['lactose'], ''],
+  ['Lait d’amande', 'Produits laitiers & alternatives', 'ok', [], ''],
+  ['Lait de riz', 'Produits laitiers & alternatives', 'ok', [], ''],
+  ['Lait d’avoine', 'Produits laitiers & alternatives', 'limite', ['fructanes'], 'Environ ½ tasse.'],
+  ['Lait de soja (protéines de soja)', 'Produits laitiers & alternatives', 'ok', [], 'Celui fait de graines de soja entières est riche en GOS.'],
+  ['Lait de soja (graines entières)', 'Produits laitiers & alternatives', 'eviter', ['gos'], ''],
+  ['Lait de coco (conserve)', 'Produits laitiers & alternatives', 'ok', [], 'Environ ½ tasse.'],
+
+  // Noix & graines
+  ['Noix', 'Noix & graines', 'ok', [], ''],
+  ['Noix de pécan', 'Noix & graines', 'ok', [], ''],
+  ['Noix de macadamia', 'Noix & graines', 'ok', [], ''],
+  ['Cacahuètes, beurre de cacahuète', 'Noix & graines', 'ok', [], ''],
+  ['Pignons de pin', 'Noix & graines', 'ok', [], ''],
+  ['Graines de courge', 'Noix & graines', 'ok', [], ''],
+  ['Graines de tournesol', 'Noix & graines', 'limite', ['fructanes'], '2 cuillères à café.'],
+  ['Graines de chia', 'Noix & graines', 'ok', [], '2 cuillères à soupe.'],
+  ['Graines de lin', 'Noix & graines', 'limite', ['gos'], '1 cuillère à soupe.'],
+  ['Graines de sésame', 'Noix & graines', 'ok', [], ''],
+  ['Amandes', 'Noix & graines', 'limite', ['gos'], 'Environ 10 amandes.'],
+  ['Noisettes', 'Noix & graines', 'limite', ['gos', 'fructanes'], 'Environ 10 noisettes.'],
+  ['Noix de cajou', 'Noix & graines', 'eviter', ['gos', 'fructanes'], ''],
+  ['Pistaches', 'Noix & graines', 'eviter', ['gos', 'fructanes'], ''],
+
+  // Sucres & douceurs
+  ['Sucre blanc ou roux', 'Sucres & douceurs', 'ok', [], ''],
+  ['Sirop d’érable', 'Sucres & douceurs', 'ok', [], ''],
+  ['Chocolat noir', 'Sucres & douceurs', 'ok', [], 'Environ 30 g.'],
+  ['Chocolat au lait', 'Sucres & douceurs', 'limite', ['lactose'], 'Environ 20 g.'],
+  ['Stévia', 'Sucres & douceurs', 'ok', [], ''],
+  ['Miel', 'Sucres & douceurs', 'eviter', ['fructose'], ''],
+  ['Sirop d’agave', 'Sucres & douceurs', 'eviter', ['fructose'], ''],
+  ['Sirop de glucose-fructose', 'Sucres & douceurs', 'eviter', ['fructose'], ''],
+  ['Polyols : sorbitol, mannitol, xylitol, maltitol, isomalt', 'Sucres & douceurs', 'eviter', ['sorbitol', 'mannitol'], 'Chewing-gums et bonbons « sans sucre » (E420, E421, E965, E953, E967).'],
+  ['Inuline, racine de chicorée', 'Sucres & douceurs', 'eviter', ['fructanes'], 'Souvent ajoutée aux produits « riches en fibres ».'],
+
+  // Boissons
+  ['Eau, eau gazeuse', 'Boissons', 'ok', [], ''],
+  ['Café (espresso, filtre)', 'Boissons', 'ok', [], 'Le café peut irriter indépendamment des FODMAP.'],
+  ['Thé noir léger', 'Boissons', 'ok', [], 'Infusé fort, il devient riche en fructanes.'],
+  ['Thé vert', 'Boissons', 'ok', [], ''],
+  ['Infusion de menthe poivrée', 'Boissons', 'ok', [], ''],
+  ['Infusion de camomille', 'Boissons', 'eviter', ['fructanes'], ''],
+  ['Infusion de fenouil', 'Boissons', 'eviter', ['fructanes'], ''],
+  ['Jus d’orange', 'Boissons', 'limite', ['fructose'], 'Environ ½ verre.'],
+  ['Jus de pomme', 'Boissons', 'eviter', ['fructose', 'sorbitol'], ''],
+  ['Vin rouge ou blanc', 'Boissons', 'ok', [], '1 verre ; l’alcool irrite l’intestin.'],
+  ['Bière', 'Boissons', 'ok', [], '1 verre.'],
+  ['Rhum', 'Boissons', 'eviter', ['fructose'], ''],
+  ['Sodas au sirop de glucose-fructose', 'Boissons', 'eviter', ['fructose'], ''],
+
+  // Condiments & assaisonnements
+  ['Huile infusée à l’ail', 'Condiments & assaisonnements', 'ok', [], 'Les fructanes ne passent pas dans l’huile.'],
+  ['Huiles (olive, colza, sésame)', 'Condiments & assaisonnements', 'ok', [], ''],
+  ['Sauce soja, tamari', 'Condiments & assaisonnements', 'ok', [], ''],
+  ['Sauce de poisson', 'Condiments & assaisonnements', 'ok', [], ''],
+  ['Moutarde', 'Condiments & assaisonnements', 'ok', [], ''],
+  ['Mayonnaise', 'Condiments & assaisonnements', 'ok', [], 'Sans ail.'],
+  ['Vinaigre de vin, de riz, de cidre', 'Condiments & assaisonnements', 'ok', [], ''],
+  ['Vinaigre balsamique', 'Condiments & assaisonnements', 'limite', ['fructose'], '1 cuillère à soupe.'],
+  ['Ketchup', 'Condiments & assaisonnements', 'limite', ['fructanes'], '1 cuillère à soupe.'],
+  ['Bouillon cube classique', 'Condiments & assaisonnements', 'eviter', ['fructanes'], 'Contient ail et oignon ; choisir une version sans.'],
+  ['Herbes fraîches (basilic, persil, coriandre, menthe, thym)', 'Condiments & assaisonnements', 'ok', [], ''],
+  ['Épices (cumin, curcuma, paprika, poivre, curry sans ail)', 'Condiments & assaisonnements', 'ok', [], 'Vérifier les mélanges : ail et oignon en poudre fréquents.'],
+  ['Ail et oignon en poudre', 'Condiments & assaisonnements', 'eviter', ['fructanes'], ''],
+  ['Asa-fœtida', 'Condiments & assaisonnements', 'ok', [], 'Une pincée donne un goût d’ail ; choisir sans farine de blé.'],
+  ['Pesto', 'Condiments & assaisonnements', 'limite', ['fructanes'], 'Le maison sans ail passe très bien.'],
+  ['Sauce tomate du commerce', 'Condiments & assaisonnements', 'limite', ['fructanes'], 'Contient souvent ail et oignon.'],
+];
+
+export const FOODS = RAW.map(([name, category, status, families, note], i) => ({
+  id: 'f' + i, name, category, status, families, note,
+}));
+
+// Aliments-tests suggérés pour la réintroduction (portion croissante sur 3 jours).
+export const REINTRO = {
+  fructanes: { food: 'Pain de blé', doses: ['½ tranche', '1 tranche', '2 tranches'] },
+  gos: { food: 'Pois chiches en conserve', doses: ['¼ tasse', '½ tasse', '1 tasse'] },
+  lactose: { food: 'Lait de vache', doses: ['½ tasse', '¾ tasse', '1 tasse'] },
+  fructose: { food: 'Miel', doses: ['1 c. à café', '1 c. à soupe', '1½ c. à soupe'] },
+  sorbitol: { food: 'Avocat', doses: ['¼ d’avocat', '⅓ d’avocat', '½ avocat'] },
+  mannitol: { food: 'Champignons de Paris', doses: ['¼ tasse', '½ tasse', '1 tasse'] },
+};
+
+export const SYMPTOMS = [
+  { id: 'ballonnements', label: 'Ballonnements' },
+  { id: 'douleur', label: 'Douleurs abdominales' },
+  { id: 'gaz', label: 'Gaz' },
+  { id: 'nausee', label: 'Nausées' },
+  { id: 'reflux', label: 'Reflux, brûlures' },
+  { id: 'fatigue', label: 'Fatigue' },
+];
+
+export const BRISTOL = [
+  { n: 1, label: 'Petites boules dures' },
+  { n: 2, label: 'Saucisse grumeleuse' },
+  { n: 3, label: 'Saucisse craquelée' },
+  { n: 4, label: 'Lisse et souple' },
+  { n: 5, label: 'Morceaux mous' },
+  { n: 6, label: 'Pâteuse' },
+  { n: 7, label: 'Liquide' },
+];
+
+export const RECIPES = [
+  {
+    id: 'r1', title: 'Porridge banane, myrtilles et noix', meal: 'Petit-déjeuner', time: 10, servings: 1,
+    ingredients: ['40 g de flocons d’avoine', '200 ml de lait d’amande', '½ banane ferme', '1 poignée de myrtilles', '1 c. à soupe de noix concassées', '1 c. à café de sirop d’érable', '1 pincée de cannelle'],
+    steps: ['Cuire les flocons dans le lait d’amande 4 à 5 minutes à feu doux en remuant.', 'Ajouter la cannelle, verser dans un bol.', 'Garnir de banane en rondelles, de myrtilles, de noix et de sirop d’érable.'],
+  },
+  {
+    id: 'r2', title: 'Omelette épinards, feta et ciboulette', meal: 'Petit-déjeuner', time: 10, servings: 1,
+    ingredients: ['2 œufs', '1 poignée d’épinards', '30 g de feta', '1 c. à soupe de ciboulette', '1 c. à café d’huile d’olive', 'Sel, poivre'],
+    steps: ['Faire tomber les épinards dans l’huile chaude 1 minute.', 'Verser les œufs battus, salés et poivrés.', 'Parsemer de feta émiettée et de ciboulette, plier l’omelette quand elle est prise.'],
+  },
+  {
+    id: 'r3', title: 'Bol de riz au saumon, concombre et sésame', meal: 'Déjeuner', time: 20, servings: 2,
+    ingredients: ['150 g de riz', '2 pavés de saumon', '½ concombre', '1 carotte râpée', '2 c. à soupe de sauce soja', '1 c. à café d’huile de sésame', '1 c. à café de gingembre râpé', 'Graines de sésame', 'Vert d’oignon nouveau'],
+    steps: ['Cuire le riz.', 'Saisir le saumon 3 à 4 minutes de chaque côté.', 'Mélanger sauce soja, huile de sésame et gingembre.', 'Dresser riz, saumon émietté, concombre et carotte ; arroser de sauce, parsemer de sésame et de vert d’oignon.'],
+  },
+  {
+    id: 'r4', title: 'Salade de quinoa, poulet et légumes grillés', meal: 'Déjeuner', time: 30, servings: 2,
+    ingredients: ['120 g de quinoa', '1 blanc de poulet', '1 poivron rouge', '1 petite courgette', '6 olives', '2 c. à soupe d’huile infusée à l’ail', '1 citron', 'Persil', 'Sel, poivre'],
+    steps: ['Cuire le quinoa et le laisser tiédir.', 'Griller poivron et courgette en lamelles, puis le poulet assaisonné.', 'Mélanger le tout avec les olives et le persil.', 'Assaisonner d’huile à l’ail, de jus de citron, de sel et de poivre.'],
+  },
+  {
+    id: 'r5', title: 'Soupe carotte, gingembre et lait de coco', meal: 'Dîner', time: 30, servings: 4,
+    ingredients: ['600 g de carottes', '1 pomme de terre', '1 c. à soupe de gingembre râpé', 'Vert de 2 poireaux', '200 ml de lait de coco', '800 ml de bouillon sans ail ni oignon', '1 c. à soupe d’huile d’olive', 'Coriandre'],
+    steps: ['Faire revenir le vert de poireau émincé dans l’huile.', 'Ajouter carottes et pomme de terre en morceaux, le gingembre et le bouillon.', 'Cuire 20 minutes, ajouter le lait de coco et mixer.', 'Servir avec de la coriandre.'],
+  },
+  {
+    id: 'r6', title: 'Pâtes sans gluten à la sauce tomate maison', meal: 'Dîner', time: 25, servings: 2,
+    ingredients: ['200 g de pâtes sans gluten', '400 g de tomates concassées', '2 c. à soupe d’huile infusée à l’ail', '1 pincée d’asa-fœtida (facultatif)', 'Basilic frais', '1 c. à café de sucre', 'Parmesan', 'Sel, poivre'],
+    steps: ['Chauffer l’huile à l’ail, ajouter l’asa-fœtida puis les tomates et le sucre.', 'Laisser mijoter 15 minutes, saler, poivrer.', 'Cuire les pâtes, mélanger à la sauce.', 'Servir avec basilic et parmesan.'],
+  },
+  {
+    id: 'r7', title: 'Curry de poulet et pommes de terre', meal: 'Dîner', time: 35, servings: 3,
+    ingredients: ['2 blancs de poulet', '3 pommes de terre', '1 poivron rouge', '1 poignée d’épinards', '200 ml de lait de coco', '2 c. à café de curry en poudre sans ail', '1 c. à café de curcuma', '1 c. à soupe de gingembre', 'Vert d’oignon nouveau', 'Riz basmati'],
+    steps: ['Dorer le poulet en dés avec le gingembre et les épices.', 'Ajouter pommes de terre et poivron en dés, le lait de coco et 100 ml d’eau.', 'Mijoter 20 minutes, ajouter les épinards en fin de cuisson.', 'Servir avec le riz et le vert d’oignon.'],
+  },
+  {
+    id: 'r8', title: 'Sauté de tofu, pak choï et nouilles de riz', meal: 'Dîner', time: 20, servings: 2,
+    ingredients: ['200 g de tofu ferme', '150 g de nouilles de riz', '2 pak choï', '1 carotte', '2 c. à soupe de sauce soja', '1 c. à soupe de sirop d’érable', '1 c. à café de gingembre', '1 c. à soupe de cacahuètes', 'Citron vert'],
+    steps: ['Presser et couper le tofu, le dorer à la poêle.', 'Faire sauter carotte en julienne et pak choï.', 'Ajouter les nouilles réhydratées, la sauce soja, le sirop d’érable et le gingembre.', 'Servir avec cacahuètes concassées et citron vert.'],
+  },
+  {
+    id: 'r9', title: 'Poisson au four, pommes de terre et haricots verts', meal: 'Dîner', time: 35, servings: 2,
+    ingredients: ['2 filets de cabillaud', '400 g de pommes de terre', '150 g de haricots verts', '1 citron', 'Thym', '2 c. à soupe d’huile d’olive', 'Sel, poivre'],
+    steps: ['Rôtir les pommes de terre en quartiers 20 minutes à 200 °C avec la moitié de l’huile et le thym.', 'Ajouter le poisson et les haricots verts, arroser d’huile et de citron.', 'Prolonger de 12 à 15 minutes.'],
+  },
+  {
+    id: 'r10', title: 'Crumble fraises et rhubarbe, flocons et noix', meal: 'Dessert', time: 40, servings: 4,
+    ingredients: ['300 g de fraises', '200 g de rhubarbe', '2 c. à soupe de sucre', '60 g de flocons d’avoine', '40 g de farine de riz', '40 g de beurre', '30 g de noix de pécan', '30 g de sucre roux'],
+    steps: ['Disposer fruits coupés et sucre dans un plat.', 'Sabler flocons, farine, beurre, sucre roux et noix concassées.', 'Recouvrir les fruits et cuire 25 minutes à 180 °C.'],
+  },
+  {
+    id: 'r11', title: 'Yaourt sans lactose, kiwi et chia', meal: 'Collation', time: 5, servings: 1,
+    ingredients: ['150 g de yaourt sans lactose', '1 kiwi', '1 c. à soupe de graines de chia', '1 c. à café de sirop d’érable'],
+    steps: ['Mélanger le yaourt et le chia, laisser reposer 5 minutes.', 'Ajouter le kiwi en dés et le sirop d’érable.'],
+  },
+  {
+    id: 'r12', title: 'Galettes de riz, beurre de cacahuète et banane', meal: 'Collation', time: 3, servings: 1,
+    ingredients: ['2 galettes de riz', '1 c. à soupe de beurre de cacahuète', '½ banane ferme'],
+    steps: ['Tartiner les galettes, ajouter la banane en rondelles.'],
+  },
+];
