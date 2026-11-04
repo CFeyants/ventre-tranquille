@@ -11,6 +11,7 @@ const EMPTY = {
   favorites: [],
   shopping: [],
   reintro: {},
+  plan: null,
 };
 
 let state = load();

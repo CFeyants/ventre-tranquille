@@ -2,6 +2,7 @@ import {
   FAMILIES, STATUS, CATEGORIES, FOODS, RECIPES, REINTRO, SYMPTOMS, BRISTOL,
 } from './data.js';
 import * as store from './store.js';
+import * as plan from './plan.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const main = $('#main');
@@ -415,6 +416,7 @@ function renderJournal() {
       <label class="daynav-label"><span>${h(fmtDay(key))}</span><input type="date" id="j-date" value="${key}" max="${dayKey(Date.now())}"></label>
       <button type="button" class="btn btn-ghost" id="j-next" aria-label="Jour suivant" ${isToday ? 'disabled' : ''}>›</button>
     </div>
+    ${isToday ? todayCard(entries) : ''}
     <div class="quick">
       <button type="button" data-new="meal"><span>${ENTRY_ICON.meal}</span>Repas</button>
       <button type="button" data-new="symptom"><span>${ENTRY_ICON.symptom}</span>Symptômes</button>
@@ -435,6 +437,7 @@ function renderJournal() {
   $('#j-next').addEventListener('click', () => { ui.journalDay = dayKey(start + DAY * 1.5); renderJournal(); });
   $('#j-date').addEventListener('change', (e) => { if (e.target.value) { ui.journalDay = e.target.value; renderJournal(); } });
   main.querySelectorAll('[data-new]').forEach((b) => b.addEventListener('click', () => openEntry(b.dataset.new)));
+  bindTodayCard();
   main.querySelectorAll('[data-entry]').forEach((b) => b.addEventListener('click', () => {
     const e = store.get().journal.find((x) => x.id === b.dataset.entry);
     openEntry(e.type, e);
@@ -566,6 +569,102 @@ function openEntry(type, entry = null, preset = {}) {
     store.update((s) => { s.journal = s.journal.filter((x) => x.id !== entry.id); });
     dialog.close();
   });
+}
+
+// ---------- Programme du jour ----------
+
+const RESULT_BUTTONS = [['tolere', 'Bien toléré'], ['partiel', 'En petite quantité'], ['nontolere', 'Mal toléré']];
+
+function todayCard(entries) {
+  const s = store.get();
+  if (!s.plan) {
+    return `<a class="today today-empty" href="#phases"><strong>Programmer mon régime</strong>
+      <span class="muted small">Choisissez une date de début : l’application calcule le mois d’élimination puis la réintroduction.</span></a>`;
+  }
+  const info = plan.dayInfo(s.plan, dayKey(Date.now()));
+  const has = (type) => entries.some((e) => e.type === type);
+  const checklist = `<ul class="todo">
+    ${[['meal', 'Repas notés'], ['symptom', 'Symptômes notés'], ['stool', 'Selles notées'], ['context', 'Stress et sommeil']].map(([t, l]) => `
+      <li class="${has(t) ? 'done' : ''}"><button type="button" data-new="${t}">${has(t) ? '✓' : '○'} ${l}</button></li>`).join('')}
+  </ul>`;
+
+  if (info.phase === 'avant') {
+    return `<section class="today"><span class="today-tag">Préparation</span>
+      <strong>Début du régime ${info.daysLeft === 1 ? 'demain' : `dans ${info.daysLeft} jours`}</strong>
+      <p class="small">D’ici là : notez vos symptômes actuels pour avoir un point de comparaison, faites les courses avec les recettes, préparez un bouillon maison à congeler.</p>
+      ${checklist}</section>`;
+  }
+  if (info.phase === 'elimination') {
+    const week = Math.ceil(info.day / 7);
+    const tips = [
+      'Première semaine : remplacez, ne supprimez pas. Gardez des repas complets et variés avec les aliments à favoriser.',
+      'Lisez les étiquettes : ail, oignon, blé, sirop de glucose-fructose et lactose se cachent partout.',
+      'Mi-parcours : comparez vos symptômes avec la semaine 1 dans Parcours.',
+      'Dernière semaine : préparez la réintroduction. Faites le point avec votre médecin si les symptômes n’ont pas diminué.',
+    ];
+    return `<section class="today"><span class="today-tag">Élimination · semaine ${week}</span>
+      <strong>Jour ${info.day} sur ${info.total}</strong>
+      <div class="progress"><span style="width:${info.day / info.total * 100}%"></span></div>
+      <p class="small">${tips[Math.min(week, 4) - 1]}</p>
+      ${checklist}</section>`;
+  }
+  if (info.phase === 'reintroduction') {
+    const t = info.test;
+    if (info.testDay) {
+      const dose = t.doses[info.testDay - 1];
+      return `<section class="today today-test"><span class="today-tag">Réintroduction · ${h(t.label)}</span>
+        <strong>Test jour ${info.testDay}/3 : ${h(t.food)}, ${h(dose)}</strong>
+        <p class="small">Le reste des repas reste pauvre en FODMAP. Si les symptômes sont nets, arrêtez le test et passez à la pause.</p>
+        <div class="actions"><button type="button" class="btn" data-test-dose="${h(`Test ${t.label} : ${t.food}, ${dose}`)}">Noter la dose prise</button></div>
+        ${checklist}</section>`;
+    }
+    const r = s.reintro[t.fam]?.status;
+    const ask = info.lastPauseDay && (!r || r === 'encours');
+    return `<section class="today"><span class="today-tag">Pause après le test ${h(t.label)}</span>
+      <strong>Pause, jour ${info.pauseDay} : aucun nouvel aliment-test</strong>
+      <p class="small">On revient à l’alimentation pauvre en FODMAP pour que l’intestin se calme avant la famille suivante.</p>
+      ${ask ? `<p class="small"><strong>Comment s’est passé le test ${h(t.label)} ?</strong></p>
+        <div class="actions start">${RESULT_BUTTONS.map(([k, l]) => `<button type="button" class="btn btn-ghost" data-result="${t.fam}:${k}">${l}</button>`).join('')}</div>` : ''}
+      <div class="actions start"><button type="button" class="btn btn-ghost" data-extend="${t.fam}">Symptômes encore présents : +2 jours de pause</button></div>
+      ${checklist}</section>`;
+  }
+  return `<section class="today"><span class="today-tag">Personnalisation</span>
+    <strong>Réintroduction terminée</strong>
+    <p class="small">Réintégrez ce qui est bien toléré. Le guide signale les familles qui vous posent problème.</p>
+    <div class="actions start"><a class="btn btn-ghost" href="#phases">Voir mes résultats</a></div></section>`;
+}
+
+function bindTodayCard() {
+  main.querySelector('[data-test-dose]')?.addEventListener('click', (e) => {
+    openEntry('meal', null, { text: e.target.dataset.testDose, mealType: 'Collation' });
+  });
+  main.querySelectorAll('[data-result]').forEach((b) => b.addEventListener('click', () => {
+    const [fam, status] = b.dataset.result.split(':');
+    store.update((s) => { s.reintro[fam] = { ...(s.reintro[fam] || {}), status }; });
+  }));
+  main.querySelector('[data-extend]')?.addEventListener('click', (e) => {
+    const fam = e.target.dataset.extend;
+    store.update((s) => { s.plan.extra = { ...(s.plan.extra || {}), [fam]: (s.plan.extra?.[fam] || 0) + 2 }; });
+  });
+}
+
+// Pic de symptômes moyen par semaine d'élimination (jours renseignés uniquement).
+function weeklyScores(p) {
+  const journal = store.get().journal;
+  return [0, 1, 2, 3].map((w) => {
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+      const key = plan.addDays(p.start, w * 7 + i);
+      const d0 = dayStart(key);
+      const sy = journal.filter((e) => e.type === 'symptom' && e.ts >= d0 && e.ts < d0 + DAY);
+      if (sy.length) days.push(Math.max(...sy.map(maxSymptom)));
+    }
+    return { n: days.length, avg: days.length ? days.reduce((a, x) => a + x, 0) / days.length : null };
+  });
+}
+
+function fmtDate(key, opts = { day: 'numeric', month: 'short' }) {
+  return new Date(dayStart(key)).toLocaleDateString('fr-BE', opts);
 }
 
 // ---------- Bilan ----------
@@ -740,21 +839,84 @@ function download(name, text, type) {
 
 function renderPhases() {
   const s = store.get();
+  const todayKey = dayKey(Date.now());
+  const info = s.plan ? plan.dayInfo(s.plan, todayKey) : null;
+  const current = info ? (info.phase === 'avant' ? 'elimination' : info.phase) : s.phase;
+  const sc = info?.sc;
+
+  const testState = (t) => {
+    const r = s.reintro[t.fam]?.status;
+    if (r && r !== 'encours') return REINTRO_STATUS[r];
+    if (todayKey > t.pauseEnd) return 'Résultat à noter';
+    if (todayKey >= t.start) return 'En cours';
+    return 'Prévu';
+  };
+
+  let program;
+  if (!s.plan) {
+    program = `<form class="form plan-form" id="plan-form">
+      <p class="small">Indiquez le jour où vous commencez. L’application calcule 4 semaines d’élimination, puis la réintroduction des 6 familles : 3 jours de test et 3 jours de pause pour chacune.</p>
+      <label>Date de début<input type="date" name="start" required value="${plan.addDays(todayKey, 7)}" min="${plan.addDays(todayKey, -60)}"></label>
+      <div class="actions"><button class="btn">Calculer mon programme</button></div>
+    </form>`;
+  } else {
+    const weeks = weeklyScores(s.plan);
+    const fmt = (n) => n.toLocaleString('fr-BE', { maximumFractionDigits: 1 });
+    program = `
+      <ol class="plan">
+        <li class="${info.phase === 'elimination' || info.phase === 'avant' ? 'now' : todayKey > sc.elimEnd ? 'past' : ''}">
+          <span class="plan-date">${fmtDate(sc.start)} → ${fmtDate(sc.elimEnd)}</span>
+          <strong>Élimination (4 semaines)</strong>
+          ${info.phase === 'elimination' ? `<span class="small muted">Jour ${info.day} sur ${info.total}</span>` : ''}
+          ${info.phase === 'avant' ? `<span class="small muted">Commence dans ${info.daysLeft} jour${info.daysLeft > 1 ? 's' : ''}</span>` : ''}
+        </li>
+        ${sc.tests.map((t) => `<li class="${todayKey >= t.start && todayKey <= t.pauseEnd ? 'now' : todayKey > t.pauseEnd ? 'past' : ''}">
+          <span class="plan-date">${fmtDate(t.start)} → ${fmtDate(t.pauseEnd)}</span>
+          <strong>Test ${h(t.label)} <span class="chip">${h(testState(t))}</span></strong>
+          <span class="small muted">${h(t.food)} : ${t.doses.map(h).join(' · ')}, puis pause</span>
+        </li>`).join('')}
+        <li class="${info.phase === 'personnalisation' ? 'now' : ''}">
+          <span class="plan-date">dès le ${fmtDate(sc.persoStart)}</span>
+          <strong>Personnalisation</strong>
+        </li>
+      </ol>
+      <h3>Symptômes pendant l’élimination</h3>
+      <p class="muted small">Pic moyen par jour, sur les jours où vous avez noté vos symptômes. S’il baisse, l’élimination fonctionne.</p>
+      <ul class="weeks">${weeks.map((w, i) => `<li>
+        <span>Semaine ${i + 1}</span>
+        <span class="hbar"><span class="hbar-fill ${w.avg !== null && w.avg >= 4 ? 'hbar-warn' : 'hbar-ok'}" style="width:${(w.avg || 0) * 10}%"></span></span>
+        <span class="weeks-v">${w.avg === null ? '—' : fmt(w.avg)}<small>${w.n} j</small></span>
+      </li>`).join('')}</ul>
+      <div class="actions">
+        <button type="button" class="btn btn-ghost" id="plan-ics">Ajouter à mon agenda</button>
+        <button type="button" class="btn btn-ghost" id="plan-edit">Changer la date</button>
+        <button type="button" class="btn btn-danger" id="plan-del">Supprimer</button>
+      </div>
+      <p class="muted small">« Ajouter à mon agenda » télécharge un fichier avec chaque étape et un rappel chaque soir à 20 h pour remplir le journal.</p>`;
+  }
+
   main.innerHTML = `
     <header class="view-head">
       <h1>Mon parcours</h1>
       <p class="muted">Le régime pauvre en FODMAP se fait en trois temps, idéalement accompagné par un diététicien.</p>
     </header>
-    <ol class="phases">
-      ${Object.entries(PHASES).map(([k, p], i) => `<li class="${s.phase === k ? 'current' : ''}">
-        <button type="button" data-phase="${k}"><span class="phase-n">${i + 1}</span><span><strong>${p.label}</strong>
-        ${s.phase === k ? '<span class="chip">En cours</span>' : ''}</span></button>
-        ${s.phase === k ? `<p>${h(p.text)}</p>` : ''}
-      </li>`).join('')}
-    </ol>
     <section class="group">
-      <h2>Réintroduction par famille</h2>
-      <p class="muted small">Jour 1, 2, 3 : portion croissante de l’aliment-test. Si les symptômes sont nets, arrêtez le test. Notez tout dans le journal.</p>
+      <h2>Mon programme</h2>
+      ${program}
+    </section>
+    <section class="group">
+      <h2>Les trois phases</h2>
+      <ol class="phases">
+        ${Object.entries(PHASES).map(([k, p], i) => `<li class="${current === k ? 'current' : ''}">
+          <button type="button" data-phase="${k}" ${s.plan ? 'disabled' : ''}><span class="phase-n">${i + 1}</span><span><strong>${p.label}</strong>
+          ${current === k ? '<span class="chip">En cours</span>' : ''}</span></button>
+          ${current === k ? `<p>${h(p.text)}</p>` : ''}
+        </li>`).join('')}
+      </ol>
+    </section>
+    <section class="group">
+      <h2>Résultats de la réintroduction</h2>
+      <p class="muted small">Jour 1, 2, 3 : portion croissante de l’aliment-test. Si les symptômes sont nets, arrêtez le test. Touchez une famille pour noter le résultat.</p>
       <ul class="reintro">
         ${Object.entries(FAMILIES).map(([k, fam]) => {
           const r = s.reintro[k] || {};
@@ -772,6 +934,29 @@ function renderPhases() {
       <p class="small">Cette application est un outil d’organisation personnel. Les informations sur les aliments sont indicatives et ne remplacent pas l’avis d’un médecin ou d’un diététicien. Consultez rapidement en cas de sang dans les selles, de perte de poids inexpliquée, de fièvre, de symptômes nocturnes ou d’anémie.</p>
     </section>
   `;
+
+  $('#plan-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const start = new FormData(e.target).get('start');
+    store.update((st) => { st.plan = { start, extra: {} }; });
+  });
+  $('#plan-ics')?.addEventListener('click', () => download(`regime-fodmap-${s.plan.start}.ics`, plan.toICS(s.plan), 'text/calendar'));
+  $('#plan-edit')?.addEventListener('click', () => {
+    openDialog(`<form method="dialog" class="form" id="plan-edit-form">
+      <h2>Changer la date de début</h2>
+      <label>Date de début<input type="date" name="start" required value="${s.plan.start}"></label>
+      <p class="muted small">Tout le calendrier est recalculé. Vos notes du journal ne changent pas.</p>
+      <div class="actions"><button type="button" class="btn btn-ghost" data-close>Annuler</button><button class="btn">Enregistrer</button></div>
+    </form>`);
+    $('#plan-edit-form').addEventListener('submit', (e) => {
+      const start = new FormData(e.target).get('start');
+      store.update((st) => { st.plan.start = start; });
+    });
+  });
+  $('#plan-del')?.addEventListener('click', () => {
+    if (!confirm('Supprimer le programme ? Le journal et les résultats de réintroduction sont conservés.')) return;
+    store.update((st) => { st.plan = null; });
+  });
   main.querySelectorAll('[data-phase]').forEach((b) => b.addEventListener('click', () => {
     store.update((st) => { st.phase = b.dataset.phase; });
   }));
