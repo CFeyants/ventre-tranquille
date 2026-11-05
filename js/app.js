@@ -2,6 +2,7 @@ import {
   FAMILIES, STATUS, CATEGORIES, FOODS, RECIPES as BASE_RECIPES, REINTRO, SYMPTOMS, BRISTOL,
 } from './data.js';
 import { EXTRA_RECIPES } from './recipes-extra.js';
+import { EXTRA_RECIPES_2 } from './recipes-extra2.js';
 import * as store from './store.js';
 import * as plan from './plan.js';
 
@@ -13,7 +14,7 @@ const h = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
 
-const RECIPES = [...BASE_RECIPES, ...EXTRA_RECIPES];
+const RECIPES = [...BASE_RECIPES, ...EXTRA_RECIPES, ...EXTRA_RECIPES_2];
 const HOUR = 3600e3;
 const DAY = 24 * HOUR;
 const MEAL_TYPES = ['Petit-déjeuner', 'Déjeuner', 'Dîner', 'Collation'];
