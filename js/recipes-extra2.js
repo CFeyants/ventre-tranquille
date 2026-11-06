@@ -1348,4 +1348,22 @@ export const EXTRA_RECIPES_2 = [
       'Couper en rondelles de 5 mm et cuire 12 min à 180 °C. Servir la compote froide avec les sablés.',
     ],
   },
+  {
+    id: 'y70', title: 'Crêpes amande et farine de riz de la Chandeleur', meal: 'Dessert', time: 20, servings: 2,
+    ingredients: [
+      '50 g de poudre d’amande',
+      '30 g de farine de riz',
+      '40 g de fécule de maïs',
+      '20 g de sucre',
+      '200 ml de lait d’amande',
+      '2 œufs',
+      'Beurre sans lactose ou végétal pour la cuisson',
+      'Garniture : sucre et citron, sirop d’érable ou granulés de chocolat',
+    ],
+    steps: [
+      'Fouetter tous les ingrédients de la pâte jusqu’à obtenir un mélange lisse.',
+      'Cuire de fines crêpes dans une poêle bien chaude légèrement graissée, environ 1 minute par face.',
+      'Garnir d’un peu de beurre sans lactose et de sucre en fin de cuisson, ou de citron, de sirop d’érable ou de granulés de chocolat. Pas de miel.',
+    ],
+  },
 ];
