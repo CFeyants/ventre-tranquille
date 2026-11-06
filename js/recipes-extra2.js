@@ -1383,4 +1383,22 @@ export const EXTRA_RECIPES_2 = [
       'Servir avec la garniture choisie. Pas de miel.',
     ],
   },
+  {
+    id: 'y72', title: 'Pancakes banane et sarrasin', meal: 'Petit-déjeuner', time: 20, servings: 3,
+    ingredients: [
+      '2 à 3 bananes bien mûres',
+      '200 g de farine de sarrasin',
+      '2 œufs',
+      '250 ml de lait d’amande',
+      '½ sachet de poudre à lever sans gluten',
+      'Huile de coco ou huile végétale pour la cuisson',
+      'Garniture au choix : fruits rouges, sirop d’érable, purée d’amande, chocolat noir',
+    ],
+    steps: [
+      'Écraser les bananes à la fourchette, puis ajouter la farine, la poudre à lever, les œufs et le lait ; mélanger jusqu’à obtenir une pâte lisse.',
+      'Chauffer un peu d’huile de coco dans une poêle et verser une louche de pâte.',
+      'Retourner quand de petites bulles apparaissent, cuire encore 1 minute.',
+      'Servir avec la garniture choisie. Pas de miel.',
+    ],
+  },
 ];
