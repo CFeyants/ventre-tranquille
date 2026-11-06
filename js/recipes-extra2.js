@@ -1357,13 +1357,13 @@ export const EXTRA_RECIPES_2 = [
       '20 g de sucre',
       '200 ml de lait d’amande',
       '2 œufs',
-      'Beurre sans lactose ou végétal pour la cuisson',
+      'Huile végétale pour la cuisson (colza, tournesol ou olive)',
       'Garniture : sucre et citron, sirop d’érable ou granulés de chocolat',
     ],
     steps: [
       'Fouetter tous les ingrédients de la pâte jusqu’à obtenir un mélange lisse.',
-      'Cuire de fines crêpes dans une poêle bien chaude légèrement graissée, environ 1 minute par face.',
-      'Garnir d’un peu de beurre sans lactose et de sucre en fin de cuisson, ou de citron, de sirop d’érable ou de granulés de chocolat. Pas de miel.',
+      'Cuire de fines crêpes dans une poêle bien chaude légèrement huilée, environ 1 minute par face.',
+      'Garnir de sucre et de citron, de sirop d’érable ou de granulés de chocolat. Pas de miel.',
     ],
   },
   {
