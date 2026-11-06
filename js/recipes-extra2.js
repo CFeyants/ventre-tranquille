@@ -1366,4 +1366,21 @@ export const EXTRA_RECIPES_2 = [
       'Garnir d’un peu de beurre sans lactose et de sucre en fin de cuisson, ou de citron, de sirop d’érable ou de granulés de chocolat. Pas de miel.',
     ],
   },
+  {
+    id: 'y71', title: 'Pancakes à la farine de riz', meal: 'Petit-déjeuner', time: 20, servings: 3,
+    ingredients: [
+      '250 g de farine de riz',
+      '250 ml de lait végétal (amande, riz, soja ou coco)',
+      '2 œufs',
+      '1 sachet de poudre à lever sans gluten',
+      'Beurre sans lactose ou végétal pour la poêle',
+      'Garniture au choix : purée d’amande ou de noisette, chocolat noir fondu, sirop d’érable, fruits rouges',
+    ],
+    steps: [
+      'Mélanger la farine et la poudre à lever, puis ajouter les œufs et le lait en fouettant.',
+      'Si la pâte est trop épaisse, ajouter un peu de lait : elle doit napper la cuillère.',
+      'Cuire de petites louches dans une poêle chaude légèrement graissée, retourner quand des bulles apparaissent.',
+      'Servir avec la garniture choisie. Pas de miel.',
+    ],
+  },
 ];
