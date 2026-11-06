@@ -302,7 +302,7 @@ const RAW = [
   ['Miso', 'Condiments & assaisonnements', 'ok', [], '2 cuillères à café.'],
   ['Pâte de curry du commerce', 'Condiments & assaisonnements', 'limite', ['fructanes'], 'Contient souvent ail et échalote.'],
   ['Sauce barbecue', 'Condiments & assaisonnements', 'eviter', ['fructanes', 'fructose'], 'Oignon, ail, sirop de glucose-fructose.'],
-  ['Bouillon maison sans ail ni oignon', 'Condiments & assaisonnements', 'ok', [], 'Voir la recette.'],
+  ['Bouillon maison sans ail ni oignon', 'Condiments & assaisonnements', 'ok', [], 'Voir la recette.'],  ['Ghee (beurre clarifié)', 'Produits laitiers & alternatives', 'ok', [], 'Pratiquement sans lactose ; supporte bien la cuisson à feu vif. Absent de la fiche, qui classe le beurre à éviter : à confirmer avec votre médecin.'],
 ];
 
 // Classement de la fiche « Régime pauvre en FODMAPs » remise par le médecin (SNFCP).
