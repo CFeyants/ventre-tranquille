@@ -1437,4 +1437,26 @@ export const EXTRA_RECIPES_2 = [
       'Un muffin par collation : la poudre d’amande est généreuse.',
     ],
   },
+  {
+    id: 'y75', title: 'Rosbif rôti, pommes de terre et carottes', meal: 'Dîner', time: 75, servings: 6,
+    ingredients: [
+      '1 kg de rosbif (rôti de bœuf ficelé)',
+      '800 g de pommes de terre en quartiers',
+      '4 carottes en tronçons',
+      '3 c. à soupe d’huile d’olive ou d’huile infusée à l’ail',
+      '1 c. à soupe de ghee ou de beurre sans lactose',
+      '1 c. à soupe de moutarde de Dijon',
+      '4 branches de thym',
+      '1 branche de romarin',
+      '1 ½ c. à café de sel',
+      '½ c. à café de poivre noir',
+    ],
+    steps: [
+      'Sortir le rosbif du réfrigérateur 1 heure avant la cuisson. Préchauffer le four à 200 °C.',
+      'Sur une plaque, mélanger pommes de terre et carottes avec 2 c. à soupe d’huile, la moitié du sel, le thym et le romarin. Enfourner 20 minutes.',
+      'Frotter la viande avec le reste d’huile, saler, poivrer, puis la saisir 1 à 2 minutes par face dans une poêle très chaude avec le ghee ou le beurre sans lactose.',
+      'Badigeonner le dessus de moutarde, poser le rosbif au milieu des légumes et enfourner environ 30 minutes pour une cuisson saignante (52 °C à cœur), 35 à 40 minutes pour à point (57 °C).',
+      'Emballer le rosbif dans du papier aluminium et le laisser reposer 15 minutes pendant que les légumes finissent de dorer. Trancher finement contre le sens des fibres et arroser du jus de la plaque. Les restes froids se mangent en tartines sur du pain sans gluten.',
+    ],
+  },
 ];
