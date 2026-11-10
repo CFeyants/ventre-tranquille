@@ -1401,4 +1401,24 @@ export const EXTRA_RECIPES_2 = [
       'Servir avec la garniture choisie. Pas de miel.',
     ],
   },
+  {
+    id: 'y73', title: 'Cake aux noisettes et beurre noisette', meal: 'Dessert', time: 50, servings: 8,
+    ingredients: [
+      '100 g de beurre sans lactose',
+      '90 g de poudre de noisettes',
+      '150 g de sucre glace',
+      '60 g de farine de riz',
+      '1 c. à café de levure chimique sans gluten (facultatif)',
+      '1 c. à café de vanille',
+      '4 blancs d’œufs (120 g)',
+      '1 pincée de sel',
+    ],
+    steps: [
+      'Préchauffer le four à 180 °C. Chauffer le beurre sans lactose à feu moyen jusqu’à ce qu’il prenne une couleur noisette, sans le laisser brûler ; filtrer si besoin et laisser tiédir.',
+      'Mélanger la poudre de noisettes, le sucre glace, la farine de riz, la levure, le sel et la vanille.',
+      'Incorporer les blancs d’œufs un à un au fouet, puis le beurre noisette.',
+      'Verser dans un moule à cake d’1 litre chemisé de papier cuisson et cuire 40 minutes : la lame d’un couteau doit ressortir à peine humide.',
+      'Laisser refroidir avant de couper en tranches. Sans levure chimique, le cake est simplement moins bombé.',
+    ],
+  },
 ];
