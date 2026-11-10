@@ -302,7 +302,7 @@ const RAW = [
   ['Miso', 'Condiments & assaisonnements', 'ok', [], '2 cuillères à café.'],
   ['Pâte de curry du commerce', 'Condiments & assaisonnements', 'limite', ['fructanes'], 'Contient souvent ail et échalote.'],
   ['Sauce barbecue', 'Condiments & assaisonnements', 'eviter', ['fructanes', 'fructose'], 'Oignon, ail, sirop de glucose-fructose.'],
-  ['Bouillon maison sans ail ni oignon', 'Condiments & assaisonnements', 'ok', [], 'Voir la recette.'],  ['Ghee (beurre clarifié)', 'Produits laitiers & alternatives', 'ok', [], 'Pratiquement sans lactose ; supporte bien la cuisson à feu vif. Absent de la fiche, qui classe le beurre à éviter : à confirmer avec votre médecin.'],
+  ['Bouillon maison sans ail ni oignon', 'Condiments & assaisonnements', 'ok', [], 'Voir la recette.'],  ['Ghee (beurre clarifié)', 'Produits laitiers & alternatives', 'ok', [], 'Pauvre en FODMAP selon l’Université Monash : les éléments du lait sont retirés, il ne reste presque pas de lactose. Supporte bien la cuisson à feu vif. Absent de la fiche, qui classe le beurre à éviter : à confirmer avec votre médecin, et à essayer d’abord en petite quantité.'],
   ['Café au lait sans lactose ou végétal', 'Boissons', 'ok', [], 'Cappuccino, latte : avec lait sans lactose, d’amande, de riz ou de soja.'],
   ['Café au lait de vache, cappuccino classique', 'Boissons', 'eviter', ['lactose'], ''],
   ['Café soluble', 'Boissons', 'ok', [], ''],
