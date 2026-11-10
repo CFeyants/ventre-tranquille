@@ -1421,4 +1421,20 @@ export const EXTRA_RECIPES_2 = [
       'Laisser refroidir avant de couper en tranches. Sans levure chimique, le cake est simplement moins bombé.',
     ],
   },
+  {
+    id: 'y74', title: 'Muffins banane-amande sans farine', meal: 'Collation', time: 35, servings: 5,
+    ingredients: [
+      '2 bananes bien mûres',
+      '2 œufs',
+      '140 g de poudre d’amande',
+      '½ c. à café de bicarbonate de soude',
+      '1 c. à soupe de sucre (seulement si les bananes sont peu mûres)',
+    ],
+    steps: [
+      'Préchauffer le four à 180 °C. Écraser les bananes à la fourchette, avec le sucre si elles sont peu mûres.',
+      'Ajouter les œufs, la poudre d’amande et le bicarbonate, bien mélanger.',
+      'Répartir dans 5 moules à muffins et cuire 25 minutes.',
+      'Un muffin par collation : la poudre d’amande est généreuse.',
+    ],
+  },
 ];
