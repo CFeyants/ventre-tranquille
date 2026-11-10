@@ -1459,4 +1459,27 @@ export const EXTRA_RECIPES_2 = [
       'Emballer le rosbif dans du papier aluminium et le laisser reposer 15 minutes pendant que les légumes finissent de dorer. Trancher finement contre le sens des fibres et arroser du jus de la plaque. Les restes froids se mangent en tartines sur du pain sans gluten.',
     ],
   },
+  {
+    id: 'y76', title: 'Banana bread aux bananes mûres et farine de riz', meal: 'Dessert', time: 70, servings: 8,
+    ingredients: [
+      '3 bananes bien mûres',
+      '2 œufs',
+      '80 ml d’huile neutre (ou 80 g de ghee ou de beurre sans lactose fondu)',
+      '90 g de sucre roux',
+      '60 ml de lait d’amande',
+      '200 g de farine de riz',
+      '50 g de fécule de maïs',
+      '1 sachet de levure chimique sans gluten (ou ½ c. à café de bicarbonate de soude)',
+      '1 c. à café de cannelle',
+      '1 pincée de sel',
+      '50 g de noix ou de noix de pécan concassées (facultatif)',
+    ],
+    steps: [
+      'Préchauffer le four à 180 °C et chemiser un moule à cake de papier cuisson.',
+      'Écraser les bananes, puis ajouter les œufs, l’huile, le sucre et le lait ; bien mélanger.',
+      'Incorporer la farine de riz, la fécule, la levure, la cannelle et le sel, puis les noix.',
+      'Verser dans le moule et cuire 50 à 55 minutes : la lame d’un couteau doit ressortir sèche. Couvrir d’aluminium à mi-cuisson si le dessus brunit trop vite.',
+      'Laisser refroidir complètement avant de trancher : la farine de riz rend le cake fragile tant qu’il est chaud.',
+    ],
+  },
 ];
